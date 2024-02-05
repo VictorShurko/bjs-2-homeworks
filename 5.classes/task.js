@@ -76,32 +76,14 @@ class Library {
 	}
 
 	findBookBy(type, value) {
-		for (let book of this.books) {
-			if (type === 'name' && book.name === value) {
-				return book;
-			} else if (type === 'author' && book.author === value) {
-				return book;
-			} else if (type === 'pagesCount' && book.pagesCount === value) {
-				return book;
-			} else if (type === 'state' && book.state === value) {
-				return book;
-			} else if (type === 'type' && book.type === value) {
-				return book;
-			} else if (type === 'releaseDate' && book.releaseDate === value) {
-				return book;
-			}
-		}
-		return null;
+		const findResult = this.books.find((item) => item[type] === value);
+	 	return findResult || null;
 	}
 
 	giveBookByName(bookName) {
-		for (let i = 0; i < this.books.length; i++) {
-			let book = this.books[i];
-			if (book.name === bookName) {
-				this.books.splice(i, 1);
-				return book;
-			}
-		}
-		return null;
+		const book = this.findBookBy("name", bookName);
+		if (!book) return null;
+		this.books = this.books.filter((item) => item.name !== bookName);
+		return book;
 	}
 }
